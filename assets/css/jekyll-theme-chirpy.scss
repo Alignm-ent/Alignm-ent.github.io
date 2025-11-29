@@ -1,0 +1,354 @@
+---
+---
+
+/* prettier-ignore */
+@use 'main
+{%- if jekyll.environment == 'production' -%}
+  .bundle
+{%- endif -%}
+';
+
+/* append your custom style below */
+
+/* Personal Blog Customization */
+
+/* Background with personal blog aesthetic */
+// body {
+//   background: url('/assets/images/01.gif') center/cover no-repeat fixed;
+//   background-color: transparent;
+//   overflow-x: hidden; /* 防止水平滚动条 */
+// }
+
+/* Custom colors for personal blog theme */
+:root {
+  --blog-primary: #4285f4;
+  --blog-secondary: #34a853;
+  --blog-accent: #fbbc05;
+  --blog-text: #000000; /* 纯黑色文字 */
+  --blog-light: #ffffff;
+  --blog-dark: #000000; /* 纯黑色 */
+  --blog-click-effect: #dadce0;
+}
+
+/* 自定义白天模式颜色 */
+[data-mode="light"] {
+  --main-bg: rgba(255, 255, 255, 0.5); /* 白色背景，中等透明度 */
+  --sidebar-bg: rgba(255, 255, 255, 0.7); /* 侧边栏更高透明度 */
+  --topbar-bg: rgba(255, 255, 255, 0.7); /* 顶栏更高透明度 */
+  --card-bg: rgba(255, 255, 255, 0.8); /* 卡片背景，高透明度 */
+  --sidebar-text: #000000; /* 侧边栏文字颜色 - 纯黑色 */
+  --sidebar-heading: #000000; /* 侧边栏标题颜色 - 纯黑色 */
+  --sidebar-muted: #333333; /* 侧边栏次要文字颜色 - 深灰色 */
+  --navbar-text: #000000; /* 导航栏文字颜色 - 纯黑色 */
+  --post-text: #000000; /* 文章文字颜色 - 纯黑色 */
+}
+
+/* 自定义夜间模式颜色 */
+[data-mode="dark"] {
+  --main-bg: rgba(245, 245, 245, 0.5); /* 淡灰色背景，中等透明度 */
+  --sidebar-bg: rgba(245, 245, 245, 0.7); /* 侧边栏更高透明度 */
+  --topbar-bg: rgba(245, 245, 245, 0.7); /* 顶栏更高透明度 */
+  --card-bg: rgba(245, 245, 245, 0.8); /* 卡片背景，高透明度 */
+  --sidebar-text: #000000; /* 侧边栏文字颜色 - 纯黑色 */
+  --sidebar-heading: #000000; /* 侧边栏标题颜色 - 纯黑色 */
+  --sidebar-muted: #333333; /* 侧边栏次要文字颜色 - 深灰色 */
+  --navbar-text: #000000; /* 导航栏文字颜色 - 纯黑色 */
+  --post-text: #000000; /* 文章文字颜色 - 纯黑色 */
+}
+
+// /* 降低背景图透明度 */
+// body::before {
+//   content: "";
+//   position: fixed;
+//   top: 0;
+//   left: 0;
+//   width: 100%;
+//   height: 100%;
+//   background: url('/assets/images/01.gif') center/cover no-repeat fixed;
+//   opacity: 0.1; /* 降低背景图透明度到0.1 */
+//   z-index: -1;
+// }
+
+/* Header customization */
+.site-header {
+  background: linear-gradient(135deg, var(--blog-primary), var(--blog-secondary));
+  border-bottom: 3px solid var(--blog-accent);
+  background-color: var(--topbar-bg);
+}
+
+/* Site title styling */
+.site-title {
+  color: white;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  font-family: 'Segoe UI', 'Helvetica Neue', 'Arial', sans-serif;
+}
+
+/* Navigation links */
+.nav-link {
+  color: var(--navbar-text) !important;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  font-weight: bold; /* 加粗字体 */
+  text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.8); /* 添加文字阴影 */
+}
+
+.nav-link:hover {
+  color: var(--blog-primary) !important;
+  transform: scale(1.1);
+  box-shadow: 0 0 15px var(--blog-accent);
+}
+
+/* Post title styling */
+.post-title {
+  color: var(--blog-dark);
+  border-bottom: 2px solid var(--blog-accent);
+}
+
+/* Sidebar customization */
+.sidebar {
+  background: linear-gradient(to bottom, #fff, #f8f9fa); /* 白色渐变背景 */
+  background-color: var(--sidebar-bg);
+}
+
+/* Sidebar text colors */
+.sidebar .nav-item,
+.sidebar .nav-link,
+.sidebar p,
+.sidebar span,
+.sidebar div {
+  color: var(--sidebar-text) !important;
+}
+
+.sidebar h1,
+.sidebar h2,
+.sidebar h3,
+.sidebar h4,
+.sidebar h5,
+.sidebar h6 {
+  color: var(--sidebar-heading) !important;
+}
+
+.sidebar .text-muted,
+.sidebar .site-subtitle {
+  color: var(--sidebar-muted) !important;
+}
+
+/* Button styling */
+.btn-primary {
+  background-color: var(--blog-primary);
+  border-color: var(--blog-primary);
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+  background-color: var(--blog-secondary);
+  border-color: var(--blog-secondary);
+  transform: translateY(-3px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.btn-primary:active {
+  transform: scale(0.95);
+  background-color: var(--blog-click-effect);
+  box-shadow: 0 0 20px var(--blog-click-effect);
+}
+
+/* Link styling */
+a {
+  color: var(--blog-primary);
+}
+
+a:hover {
+  color: var(--blog-secondary);
+}
+
+/* 文章预览区域 - 使用高透明度背景搭配黑色字体 */
+.card-wrapper.card {
+  background-color: var(--card-bg);
+  border-radius: 8px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* 添加阴影 */
+  transition: all 0.3s ease; /* 添加过渡效果 */
+  overflow: hidden; /* 确保内容不会溢出 */
+}
+
+/* 修复鼠标悬停时框选位置与卡片边界不匹配的问题 */
+.card-wrapper.card:hover {
+  transform: translateY(-2px); /* 轻微上移 */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15); /* 增强阴影效果 */
+}
+
+/* 移除之前的.post-preview样式，因为它们可能造成冲突 */
+.post-preview {
+  background-color: transparent !important;
+  box-shadow: none !important;
+  transform: none !important;
+}
+
+.post-preview:hover {
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+/* 文章详情页 - 使用高透明度背景搭配黑色字体 */
+.post {
+  background-color: var(--card-bg);
+  padding: 30px;
+  border-radius: 15px;
+  margin: 20px 0;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); /* 加深阴影 */
+}
+
+/* 文章内容区域 - 确保文字可读性 */
+.post-content {
+  background-color: transparent; /* 移除之前的背景色 */
+  padding: 0;
+  border-radius: 0;
+}
+
+/* 修复可能的重复文本框问题 */
+.post .post-content {
+  background-color: transparent;
+  padding: 0;
+  border-radius: 0;
+}
+
+/* Code block styling */
+.highlight {
+  background-color: rgba(240, 240, 240, 0.9); /* 代码块背景 */
+  border-left: 4px solid var(--blog-accent);
+}
+
+/* Footer customization */
+.site-footer {
+  background-color: rgba(95, 99, 104, 0.3); /* 页脚背景 */
+  color: white;
+}
+
+/* Personal blog decorative elements */
+.post-preview::before {
+  content: "✎";
+  color: var(--blog-accent);
+  margin-right: 10px;
+}
+
+/* Custom fonts for personal blog feel */
+body {
+  font-family: 'Segoe UI', 'Helvetica Neue', 'Arial', sans-serif;
+}
+
+/* Add some playful animations */
+.sidebar-img {
+  transition: transform 0.3s ease;
+}
+
+.sidebar-img:hover {
+  transform: rotate(5deg);
+}
+
+/* Custom tags styling */
+.post-tag {
+  background-color: var(--blog-secondary);
+  color: white;
+  border-radius: 15px;
+  padding: 3px 10px;
+}
+
+/* 花瓣飞舞效果样式 - 点击时以点击位置为中心散开一圈 */
+.petal {
+  position: fixed;
+  pointer-events: none;
+  z-index: 9999;
+  user-select: none;
+  font-size: 24px;
+  opacity: 0;
+  text-shadow: 0 0 2px rgba(255, 255, 255, 0.8);
+  /* 确保花瓣在视窗内显示 */
+  transform-origin: center;
+}
+
+/* 花瓣动画 */
+@keyframes petal-fall {
+  0% {
+    opacity: 1;
+    transform: translate(0, 0) rotate(0deg) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(var(--tx, 100px), var(--ty, 100px)) rotate(var(--r, 360deg)) scale(0.1);
+  }
+}
+
+.ripple {
+  position: absolute;
+  border-radius: 50%;
+  background-color: var(--blog-click-effect);
+  transform: scale(0);
+  animation: ripple 0.6s linear;
+  pointer-events: none;
+  z-index: 9999;
+}
+
+@keyframes ripple {
+  to {
+    transform: scale(2.5);
+    opacity: 0;
+  }
+}
+
+/* Enhanced hover effects */
+.nav-link, .post-tag, .btn {
+  transition: all 0.3s ease;
+}
+
+.nav-link:hover, .post-tag:hover, .btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* 调整文章文字颜色以提高可读性 */
+.post,
+.post-content,
+.post-content p,
+.post-content li,
+.post-content h1,
+.post-content h2,
+.post-content h3,
+.post-content h4,
+.post-content h5,
+.post-content h6 {
+  color: #000000 !important; /* 使用纯黑色文字 */
+  font-weight: 800; /* 更加加粗字体 */
+}
+
+.post-content p,
+.post-content li {
+  font-size: 1.3em; /* 进一步增大字体 */
+  line-height: 2.0; /* 增加行间距 */
+}
+
+/* 确保代码块在文章详情页有足够的对比度 */
+.post .highlight {
+  background-color: rgba(240, 240, 240, 0.95); /* 代码块背景 */
+}
+
+/* 侧边栏链接颜色调整 */
+.sidebar .nav-link:hover {
+  color: var(--blog-primary) !important;
+}
+
+/* 顶部导航栏文字颜色 */
+.topbar .nav-link,
+.topbar .nav-item,
+.topbar span,
+.topbar div {
+  color: var(--navbar-text) !important;
+}
+
+/* 为导航栏文字添加阴影以提高可读性 */
+.topbar .nav-link {
+  text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.8) !important;
+}

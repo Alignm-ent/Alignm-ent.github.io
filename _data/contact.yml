@@ -2,13 +2,12 @@
 
 - type: github
   icon: "fab fa-github"
-
-- type: twitter
-  icon: "fa-brands fa-x-twitter"
+  url: "https://github.com/Alignm-ent"
 
 - type: email
   icon: "fas fa-envelope"
   noblank: true # open link in current tab
+  url: "mailto:3493931079@qq.com"
 
 - type: rss
   icon: "fas fa-rss"

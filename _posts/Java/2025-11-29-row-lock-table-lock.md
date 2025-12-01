@@ -173,7 +173,6 @@ SHOW STATUS LIKE 'innodb_row_lock%';
 
 ### 案例一：索引失效导致表锁
 
-```sql
 -- 表结构
 CREATE TABLE user_account (
     id INT PRIMARY KEY,
@@ -182,12 +181,11 @@ CREATE TABLE user_account (
     INDEX idx_name (name)
 );
 
--- 错误的查询方式（会导致表锁）
-SELECT * FROM user_account WHERE name = 'John' FOR UPDATE;
+-- 错误的查询方式（在非索引列上条件查询，可能导致表锁或间隙锁）
+SELECT * FROM user_account WHERE balance = 1000.00 FOR UPDATE;
 
--- 正确的查询方式（使用索引，只会产生行锁）
+-- 正确的查询方式（在索引列上条件查询，只会产生行锁）
 SELECT * FROM user_account WHERE name = 'John' FOR UPDATE;
-```
 
 ### 案例二：长事务导致锁等待
 
@@ -244,4 +242,4 @@ public void goodExample() {
 
 ## 结语
 
-行锁与表锁是数据库并发控制的核心机制，正确理解和使用这些锁机制对于构建高性能、高可用的数据库应用至关重要。开发人员应该根据具体的应用场景选择合适的锁策略，并遵循最佳实践来避免常见的锁问题。通过持续的监控和优化，我们可以确保数据库系统在高并发环境下稳定高效地运行。
+行锁与表锁是数据库设计和使用中需要关注的侧重点

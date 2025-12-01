@@ -14,9 +14,19 @@ class PetalEffect {
   }
 
   bindEvents() {
-    // 监听整个文档的点击事件
+    // 监听整个文档的点击事件，但排除具有特定属性的链接
     document.addEventListener('click', (e) => {
-      this.createPetalCircle(e.clientX, e.clientY);
+      // 检查点击的元素是否是跳转链接
+      const target = e.target.closest('a');
+      if (target && (target.hostname !== window.location.hostname || target.target === '_blank')) {
+        // 对于外部链接或新窗口打开的链接，不触发花瓣效果
+        return;
+      }
+      
+      // 对于内部链接，延迟触发花瓣效果，确保页面跳转正常进行
+      setTimeout(() => {
+        this.createPetalCircle(e.clientX, e.clientY);
+      }, 100);
     });
   }
 
@@ -72,42 +82,44 @@ document.addEventListener('DOMContentLoaded', function() {
   // 初始化花瓣效果
   new PetalEffect();
   
-  // 添加点击动画到所有按钮和链接
-  const clickableElements = document.querySelectorAll('button, a, .btn');
+  // 添加点击动画到所有按钮和非跳转链接
+  const clickableElements = document.querySelectorAll('button, .btn, .post-preview');
   
   clickableElements.forEach(element => {
     // 添加点击动画类
     element.classList.add('click-animation');
     
-    // 添加涟漪效果点击事件
-    element.addEventListener('click', function(e) {
-      // 移除任何现有的涟漪元素
-      const existingRipple = this.querySelector('.ripple');
-      if (existingRipple) {
-        existingRipple.remove();
-      }
-      
-      // 创建涟漪元素
-      const ripple = document.createElement('span');
-      ripple.classList.add('ripple');
-      
-      // 定位涟漪在点击位置
-      const rect = this.getBoundingClientRect();
-      const size = Math.max(rect.width, rect.height);
-      const x = e.clientX - rect.left - size / 2;
-      const y = e.clientY - rect.top - size / 2;
-      
-      ripple.style.width = ripple.style.height = size + 'px';
-      ripple.style.left = x + 'px';
-      ripple.style.top = y + 'px';
-      
-      this.appendChild(ripple);
-      
-      // 动画完成后移除涟漪
-      setTimeout(() => {
-        ripple.remove();
-      }, 600);
-    });
+    // 仅对非跳转元素添加涟漪效果
+    if (!element.matches('a[href]')) {
+      element.addEventListener('click', function(e) {
+        // 移除任何现有的涟漪元素
+        const existingRipple = this.querySelector('.ripple');
+        if (existingRipple) {
+          existingRipple.remove();
+        }
+        
+        // 创建涟漪元素
+        const ripple = document.createElement('span');
+        ripple.classList.add('ripple');
+        
+        // 定位涟漪在点击位置
+        const rect = this.getBoundingClientRect();
+        const size = Math.max(rect.width, rect.height);
+        const x = e.clientX - rect.left - size / 2;
+        const y = e.clientY - rect.top - size / 2;
+        
+        ripple.style.width = ripple.style.height = size + 'px';
+        ripple.style.left = x + 'px';
+        ripple.style.top = y + 'px';
+        
+        this.appendChild(ripple);
+        
+        // 动画完成后移除涟漪
+        setTimeout(() => {
+          ripple.remove();
+        }, 600);
+      });
+    }
   });
   
   // 添加悬停效果到导航链接

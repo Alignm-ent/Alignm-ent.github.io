@@ -22,8 +22,8 @@ description: >- # used by seo meta and the atom feed
   一个分享个人感受与经历的博客。
 
 # Fill in the protocol & hostname for your site.
-# E.g. 'https://username.github.io', note that it does not end with a '/'.
-url: ""
+# E.g. 'https://username.github.io', note that it does not end with a '/'
+url: "https://alignm-ent.github.io"
 
 github:
   username: Alignm-ent # change to your GitHub username
@@ -149,7 +149,7 @@ pwa:
 paginate: 10
 
 # The base URL of your site
-baseurl: ""
+baseurl: "/Alignm-ent.github.io"
 
 # ------------ The following options are not recommended to be modified ------------------
 

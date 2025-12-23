@@ -9,11 +9,16 @@ order: 1000
   
   <p>以下是在线查看的数据可视化报告：</p>
   
-  <div id="docx-container">
-    <p>正在加载文档...</p>
+  <div id="loading-indicator" style="display: flex; justify-content: center; align-items: center; height: 200px;">
+    <div class="spinner" style="border: 4px solid #f3f3f3; border-top: 4px solid #3498db; border-radius: 50%; width: 40px; height: 40px; animation: spin 2s linear infinite;"></div>
+    <span style="margin-left: 15px;">正在加载文档，请稍候...</span>
   </div>
   
-  <p>如果文档无法显示，您可以<a href="{{ '/assets/files/数据可视化.docx' | relative_url }}" target="_blank">点击此处下载文档</a>。</p>
+  <div id="docx-container" style="display: none; margin-top: 20px;"></div>
+  
+  <div id="error-message" style="display: none; color: red; margin-top: 20px;"></div>
+  
+  <p style="margin-top: 20px;">如果文档无法显示，您可以<a href="{{ '/assets/files/数据可视化.docx' | relative_url }}" target="_blank">点击此处下载文档</a>。</p>
 </div>
 
 <style>
@@ -57,30 +62,56 @@ order: 1000
     padding: 8px;
     text-align: left;
   }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
 </style>
 
 <script src="https://cdn.jsdelivr.net/npm/mammoth@1.4.2/mammoth.browser.min.js"></script>
 <script>
 document.addEventListener("DOMContentLoaded", function() {
+  // 获取文档容器和加载指示器
+  const loadingIndicator = document.getElementById("loading-indicator");
+  const docxContainer = document.getElementById("docx-container");
+  const errorMessage = document.getElementById("error-message");
+  
+  // 设置超时时间
+  const timeout = setTimeout(() => {
+    loadingIndicator.innerHTML = '<p>文档加载时间较长，请耐心等待或尝试刷新页面...</p>';
+  }, 10000); // 10秒后显示等待消息
+  
   // 加载并转换.docx文件
   fetch("{{ '/assets/files/数据可视化.docx' | relative_url }}")
     .then(function(response) {
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
       return response.arrayBuffer();
     })
     .then(function(arrayBuffer) {
       return mammoth.convertToHtml({arrayBuffer: arrayBuffer});
     })
     .then(function(result) {
-      document.getElementById("docx-container").innerHTML = '<div class="docx-content">' + result.value + '</div>';
+      clearTimeout(timeout); // 清除超时计时器
+      loadingIndicator.style.display = "none";
+      docxContainer.style.display = "block";
+      docxContainer.innerHTML = '<div class="docx-content">' + result.value + '</div>';
       
       // 应用任何警告信息
       var messages = result.messages;
       console.log(messages);
     })
     .catch(function(error) {
+      clearTimeout(timeout); // 清除超时计时器
       console.error("文档加载失败:", error);
-      document.getElementById("docx-container").innerHTML = 
-        '<p style="color: red;">文档加载失败，请尝试下载后查看：<a href="{{ \'/assets/files/数据可视化.docx\' | relative_url }}" target="_blank">点击下载</a></p>';
+      loadingIndicator.style.display = "none";
+      errorMessage.style.display = "block";
+      errorMessage.innerHTML = `
+        <p>文档加载失败: ${error.message}</p>
+        <p>请尝试<a href="{{ '/assets/files/数据可视化.docx' | relative_url }}" target="_blank">下载文档</a>进行查看。</p>
+      `;
     });
 });
 </script>

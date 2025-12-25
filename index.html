@@ -1,4 +1,24 @@
 ---
-layout: home
+layout: default
 title: 首页
 ---
+
+<div class="home">
+  <h1 class="page-heading">{{ site.title }}</h1>
+  <p>{{ site.tagline }}</p>
+
+  <h2 class="post-list-heading">最新文章</h2>
+  <ul class="post-list">
+    {% for post in site.posts limit:5 %}
+      <li>
+        <h3>
+          <a class="post-link" href="{{ post.url | relative_url }}">{{ post.title | escape }}</a>
+        </h3>
+        <span class="post-meta">{{ post.date | date: "%Y年%m月%d日" }}</span>
+        <p>{{ post.excerpt | strip_html | truncate: 160 }}</p>
+      </li>
+    {% endfor %}
+  </ul>
+
+  <p class="rss-subscribe">订阅 <a href="{{ "/feed.xml" | relative_url }}">RSS</a></p>
+</div>
